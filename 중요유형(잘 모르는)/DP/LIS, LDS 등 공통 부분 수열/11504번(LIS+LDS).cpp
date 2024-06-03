@@ -26,7 +26,7 @@ typedef pair<ll, ll> pll;//long long pair
         }cout << '\n';                 \
     }\
 
-int n, one, dp[1001];
+int n, one, dp[1001], LISarr[1001];
 vector <int> vt;
 
 void LIS(int num){
@@ -40,7 +40,7 @@ void LIS(int num){
         }
     }
 }
-int LISarr[1001];
+
 int main(){
 	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     int maxnum = 0;
@@ -55,12 +55,11 @@ int main(){
     fill(dp, dp+1001, 0);
 
     reverse(vt.begin(),vt.end());//벡터 뒤집기
-    for(int i = 0;i<n;i++) LIS(i);//역 LIS
+    for(int i = 0;i<n;i++) LIS(i);//역 LIS(LDS 값을 반대로 누적시켜 LIS + LDS의 값을 현 인덱스에서 바로 구하기)
 
     reverse(dp, dp+n);//이때 dp는 원 배열 순서와 반대이므로 뒤집어야 한다.
-    for(int i = 0;i<n;i++){
-        maxnum = max(maxnum, LISarr[i] + dp[i]);
-    }
+
+    for(int i = 0;i<n;i++) maxnum = max(maxnum, LISarr[i] + dp[i]);
     
     cout << maxnum - 1;
 }
