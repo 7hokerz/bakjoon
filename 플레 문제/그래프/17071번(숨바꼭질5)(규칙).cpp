@@ -25,14 +25,6 @@ typedef pair<ll, ll> pll;//long long pair
             cout << (map)[i][j] << ' ';  \
         }cout << '\n';                 \
     }cout << '\n'; \
-//3차원 map 출력
-#define printmap3(row, col, select, map)      \
-    for (int i = 1; i < (row) + 1; i++){   \
-        for (int j = 1; j < (col) + 1; j++){  \
-            cout << (map)[i][j][select] << ' ';  \
-        }cout << '\n';                 \
-    }cout << '\n'; \
-
 
 int N, M, visited[500001][2], res = -1;//짝수와 홀수
 queue <pii> q;//큐
