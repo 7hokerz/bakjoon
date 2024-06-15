@@ -16,12 +16,6 @@ typedef long long ll; typedef pair<int,int> pii; typedef unsigned long long ull;
 typedef tuple<int,int,int> t3; typedef tuple<int,int,int,int> t4; typedef tuple<int,int,int,int,int> t5;
 #define mod 1'000'000'009
 #define INF 2'000'000'001
-#define printmap(row, col, map)      \
-    for (int i = 1; i < (row) + 1; i++){   \
-        for (int j = 1; j < (col) + 1; j++){  \
-            cout << (map)[i][j] << ' ';  \
-        }cout << '\n';                 \
-    }cout << '\n'; \
 
 int dx[] = {-1, 0, 1, 0}; int dy[] = {0, -1, 0 ,1};
 
