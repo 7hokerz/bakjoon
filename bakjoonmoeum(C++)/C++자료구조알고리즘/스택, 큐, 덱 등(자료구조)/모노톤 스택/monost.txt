@@ -1,0 +1,49 @@
+#define extent st.top().first//넓이
+#define height st.top().second.first//높이
+#define index st.top().second.second//인덱스
+
+히스토그램과 같은 모노톤스택을 풀 때 사용하면 좋은 정의.
+헷갈리지 않고 좋다.
+
+아래는 11873번으로 본 예시.
+
+for(int i = 0;i<N;i++)//높이 대입
+            for(int j = 0;j<M;j++){
+                cin >> input;
+                if(input == 1 && i > 0 && map[i-1][j] > 0) map[i][j] = input + map[i-1][j];
+                else map[i][j] = input;
+            }      
+        
+        int res = 0;
+        for(int i = 0;i<N;i++){
+            stack <pair<int,pair<int, int>>> st;//넓이, 높이, 인덱스
+            int area = 0;
+            for(int j = 0;j<M;j++){
+                if(st.empty() || !st.empty() && map[i][j] > height){//
+                    st.push({map[i][j],{map[i][j],j}});
+                }
+                else if(!st.empty() && map[i][j] < height){
+                    int idx;//map[i][j]보다 더 작거나 같은 값의 탑 값+1의 인덱스를 기록함(즉 마지막에 지운 map[i][j]보다 큰 값)
+                    while(!st.empty() && map[i][j] < height){
+                        extent = height*(j - index);//여기는 단순 넓이
+                        area = (extent>area)?extent:area;//최대 넓이를 기록하기 위한 area변수
+                        idx = index;
+                        st.pop();
+                    }
+                    if(!st.empty() && height == map[i][j]){//같은 높이면 또 스택에 삽입할 필요 없으므로
+                        extent = height * (j - index+1);
+                    }
+                    else if(!st.empty() && height != map[i][j]){//높이가 다르면 새롭게 정보를 기록
+                        st.push({map[i][j] * (j-idx+1),{map[i][j],idx}});
+                    }
+                    else{
+                        st.push({map[i][j],{map[i][j],0}});//이전에 없던 새로운 최솟값이 등장한 경우이므로 0부터 시작한다.
+                    }
+                }
+            }
+            while(!st.empty()){
+                extent = height*(M - index);//마지막 인덱스 - 현재 인덱스를 해야 길이가 나오므로
+                area = (extent > area)?extent:area;
+                st.pop();
+            }
+        }
